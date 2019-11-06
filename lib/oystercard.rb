@@ -7,9 +7,13 @@ attr_accessor :balance
   end
 
   def top_up(amount)
+    raise "Maximum balance of £ #{MAX_BALANCE} exceeded" if balance + amount > MAX_BALANCE
     @balance += amount
-
+    # can use fail in the same way as raise
   end
 
+  def deduct(amount)
+    @balance -= amount
+  end
 
 end

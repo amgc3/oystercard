@@ -30,9 +30,11 @@ let(:oyster_card) {Oystercard.new}
   it 'raises an error if the maximum balance is exceeded' do
     maximum_balance = Oystercard::MAX_BALANCE
     subject.top_up(maximum_balance)
-    expect{ subject.top_up 1 }.to raise_error 'Maximum balance exceeded'
+    expect{ subject.top_up 1 }.to raise_error "Maximum balance of £ #{maximum_balance} exceeded"
   end
 
-
+  it 'responds to deduct' do
+    expect(subject).to respond_to(:deduct).with(1).argument
+  end
 
 end
