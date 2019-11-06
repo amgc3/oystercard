@@ -23,7 +23,7 @@ let(:oyster_card) {Oystercard.new}
   end
   # it { is_expected.to respond_to(:top_up).with(1).argument }
 
-  it 'adds money to oystercard' do
+  it 'adds money to oystercard balance' do
     expect{subject.top_up(1)}.to change{ subject.balance }.by(1)
   end
 
@@ -36,5 +36,10 @@ let(:oyster_card) {Oystercard.new}
   it 'responds to deduct' do
     expect(subject).to respond_to(:deduct).with(1).argument
   end
+
+  it 'deducts money from oystercard balance' do
+    expect { subject.deduct 1 }.to change{subject.balance }.by(-1)
+  end
+
 
 end
