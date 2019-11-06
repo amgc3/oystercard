@@ -21,10 +21,11 @@ let(:oyster_card) {Oystercard.new}
     #oyster_card = Oystercard.new
     expect(subject).to respond_to(:top_up).with(1).argument
   end
+  # it { is_expected.to respond_to(:top_up).with(1).argument }
 
-  # it 'adds money to oystercard' do
-  #   expect(subject.top_up(5)).to eq()
-  # end
+  it 'adds money to oystercard' do
+    expect(subject.top_up(1)).to change{ subject.balance }.by(1)
+  end
 
   # it 'displays the current balance' do
   #   oyster_card = Oystercard.new
