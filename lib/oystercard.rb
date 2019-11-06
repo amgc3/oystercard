@@ -16,4 +16,17 @@ attr_accessor :balance
     @balance -= amount
   end
 
+  def touch_in
+    @in_use = true
+  end
+
+  def in_journey?
+    @in_use
+
+  end
+
+  def touch_out
+    @in_use = false
+  end
+
 end
