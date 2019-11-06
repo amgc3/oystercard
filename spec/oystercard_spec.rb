@@ -24,13 +24,14 @@ let(:oyster_card) {Oystercard.new}
   # it { is_expected.to respond_to(:top_up).with(1).argument }
 
   it 'adds money to oystercard' do
-    expect(subject.top_up(1)).to change{ subject.balance }.by(1)
+    expect{subject.top_up(1)}.to change{ subject.balance }.by(1)
   end
 
-  # it 'displays the current balance' do
-  #   oyster_card = Oystercard.new
-  #
-  # end
+  it 'raises an error if the maximum balance is exceeded' do
+    maximum_balance = Oystercard::MAX_BALANCE
+    subject.top_up(maximum_balance)
+    expect{ subject.top_up 1 }.to raise_error 'Maximum balance exceeded'
+  end
 
 
 
