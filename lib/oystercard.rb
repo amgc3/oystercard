@@ -1,7 +1,7 @@
 class Oystercard
 MAX_BALANCE = 90
 MIN_BALANCE = 1
-
+FARE = 5
 attr_accessor :balance
   def initialize
     @balance = 0
@@ -11,10 +11,6 @@ attr_accessor :balance
     raise "Maximum balance of £ #{MAX_BALANCE} exceeded" if balance + amount > MAX_BALANCE
     @balance += amount
     # can use fail in the same way as raise
-  end
-
-  def deduct(amount)
-    @balance -= amount
   end
 
   def touch_in
@@ -29,7 +25,16 @@ attr_accessor :balance
   end
 
   def touch_out
+    fare = FARE
+    deduct(fare)
     @in_use = false
   end
+
+  private
+
+  def deduct(fare)
+    @balance -= fare
+  end
+
 
 end

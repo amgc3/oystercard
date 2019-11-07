@@ -33,13 +33,13 @@ let(:oyster_card) {Oystercard.new}
     expect{ subject.top_up 1 }.to raise_error "Maximum balance of £ #{maximum_balance} exceeded"
   end
 
-  it 'responds to deduct' do
-    expect(subject).to respond_to(:deduct).with(1).argument
-  end
-
-  it 'deducts money from oystercard balance' do
-    expect { subject.deduct 1 }.to change{subject.balance }.by(-1)
-  end
+  # it 'responds to deduct' do
+  #   expect(subject).to respond_to(:deduct).with(1).argument
+  # end
+  #
+  # it 'deducts money from oystercard balance' do
+  #   expect { subject.deduct 1 }.to change{subject.balance }.by(-1)
+  # end
 
   it 'detects if card is in use' do
     subject.balance = 10
@@ -55,6 +55,11 @@ let(:oyster_card) {Oystercard.new}
     minimum_balance = Oystercard::MIN_BALANCE
     subject.balance = 0
     expect {subject.touch_in }.to raise_error "Minimun balance of #{minimum_balance} required!"
+  end
+
+  it 'deducts fare when touching out' do
+    fare = Oystercard::FARE
+    expect{subject.touch_out}.to change {subject.balance}.by(-fare)
   end
 
 
