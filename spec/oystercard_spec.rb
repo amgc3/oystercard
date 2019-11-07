@@ -2,6 +2,7 @@ require 'oystercard'
 
 describe Oystercard do
 let(:oyster_card) {Oystercard.new}
+let(:entry_station) {double :entry_station}
   it 'creates an instance of Oystercard'do
     #oyster_card = Oystercard.new
     expect(oyster_card).to be_an_instance_of(Oystercard)
@@ -43,7 +44,7 @@ let(:oyster_card) {Oystercard.new}
 
   it 'detects if card is in use' do
     subject.balance = 10
-    subject.touch_in
+    subject.touch_in("East Finchley")
     expect(subject.in_journey?).to be true
   end
 
@@ -54,12 +55,18 @@ let(:oyster_card) {Oystercard.new}
   it 'raises an error if balance is less than £1' do
     minimum_balance = Oystercard::MIN_BALANCE
     subject.balance = 0
-    expect {subject.touch_in }.to raise_error "Minimun balance of #{minimum_balance} required!"
+    expect {subject.touch_in("East Finchley") }.to raise_error "Minimun balance of #{minimum_balance} required!"
   end
 
   it 'deducts fare when touching out' do
     fare = Oystercard::FARE
     expect{subject.touch_out}.to change {subject.balance}.by(-fare)
+  end
+
+  it 'set station to nil when touching out' do
+    subject.balance = 10
+    subject.touch_in("East Finchley")
+    expect{subject.touch_out}.to change {subject.entry_station}.from("East Finchley").to(nil)
   end
 
 
