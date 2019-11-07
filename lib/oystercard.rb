@@ -1,5 +1,6 @@
 class Oystercard
 MAX_BALANCE = 90
+MIN_BALANCE = 1
 
 attr_accessor :balance
   def initialize
@@ -17,6 +18,8 @@ attr_accessor :balance
   end
 
   def touch_in
+    @balance
+    raise "Minimun balance of #{MIN_BALANCE} required!" if balance < MIN_BALANCE
     @in_use = true
   end
 

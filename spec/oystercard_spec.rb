@@ -41,14 +41,20 @@ let(:oyster_card) {Oystercard.new}
     expect { subject.deduct 1 }.to change{subject.balance }.by(-1)
   end
 
-  it 'detects if in_journey' do
+  it 'detects if card is in use' do
+    subject.balance = 10
     subject.touch_in
     expect(subject.in_journey?).to be true
   end
 
-  it 'detects if not in_journey' do
+  it 'detects if it is not in use' do
     subject.touch_out
     expect(subject.in_journey?).to be false
+  end
+  it 'raises an error if balance is less than £1' do
+    minimum_balance = Oystercard::MIN_BALANCE
+    subject.balance = 0
+    expect {subject.touch_in }.to raise_error "Minimun balance of #{minimum_balance} required!"
   end
 
 
