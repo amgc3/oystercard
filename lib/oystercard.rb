@@ -35,6 +35,8 @@ attr_reader :entry_station, :exit_station, :history, :journey
   def touch_out(exit_station)
     @entry_station = nil
     @exit_station = exit_station
+    @journey[:exit] = exit_station
+    
     fare = FARE
     deduct(fare)
     #@in_use = false

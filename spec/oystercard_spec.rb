@@ -25,6 +25,11 @@ it 'stores the entry station in history hash' do
   expect(subject.journey[:entry]).to  eq("East Finchley")
 end
 
+it 'stores the exit station in history hash' do
+  subject.touch_out("Old Street")
+  expect(subject.journey[:exit]).to eq("Old Street")
+end
+
 it 'responds to balance' do
   #oyster_card = Oystercard.new
   expect(subject).to respond_to(:balance)
