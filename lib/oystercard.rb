@@ -3,9 +3,12 @@ MAX_BALANCE = 90
 MIN_BALANCE = 1
 FARE = 5
 attr_accessor :balance
-attr_reader :entry_station
+attr_reader :entry_station, :exit_station, :history, :journey
+
   def initialize
     @balance = 0
+    @journey = Hash.new
+    @history = []
   end
 
   def top_up(amount)
@@ -19,6 +22,8 @@ attr_reader :entry_station
     raise "Minimun balance of #{MIN_BALANCE} required!" if balance < MIN_BALANCE
     #@in_use = true
     @entry_station = entry_station
+    @journey[:entry] = entry_station
+
   end
 
 # need to think about this @in_use
@@ -27,8 +32,9 @@ attr_reader :entry_station
     @entry_station != nil
   end
 
-  def touch_out
+  def touch_out(exit_station)
     @entry_station = nil
+    @exit_station = exit_station
     fare = FARE
     deduct(fare)
     #@in_use = false
