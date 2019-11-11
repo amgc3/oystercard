@@ -36,7 +36,7 @@ attr_reader :entry_station, :exit_station, :history, :journey
     @entry_station = nil
     @exit_station = exit_station
     @journey[:exit] = exit_station
-    
+    @history << @journey
     fare = FARE
     deduct(fare)
     #@in_use = false
